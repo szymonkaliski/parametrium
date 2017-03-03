@@ -1,11 +1,6 @@
-// const escodegen    = require('escodegen');
-// const esprima      = require('esprima');
-// const fs           = require('fs');
-// const { traverse } = require('esprima-ast-utils');
-
-// const code = fs.readFileSync(process.argv[2], { encoding: 'utf8' });
-
-// const ast = esprima.parse(code);
+const fs     = require('fs');
+const get    = require('lodash.get');
+const recast = require('recast');
 
 const orderOfMagnitude = (n) => {
   const eps   = 0.000000001;
@@ -26,45 +21,37 @@ const random = (...args) => {
   }
 };
 
-// traverse(ast, (node) => {
-//   if (node.type === 'Literal') {
-//     const orgValue  = node.value;
-//     const magnitude = orderOfMagnitude(orgValue);
-//     const newValue  = orgValue + random(-magnitude / 2, magnitude / 2);
-
-//     node.value    = newValue;
-//     node.raw      = `${newValue}`;
-//     node.orgValue = orgValue;
-
-//     console.log(node);
-//   }
-// });
-
-// const generated = escodegen.generate(ast);
-
-// console.log(generated);
-
-
-const fs     = require('fs');
-const recast = require('recast');
-
 const code = fs.readFileSync(process.argv[2], { encoding: 'utf8' });
+const ast  = recast.parse(code);
 
-const ast = recast.parse(code);
+const colorCallees = [
+  'ambientLight',
+  'background',
+  'fill',
+  'stroke',
+];
 
 recast.visit(ast, {
-  visitNode: function(path) {
-    if (path.value.type === 'Literal') {
-      const orgValue  = path.value.value;
-      const magnitude = orderOfMagnitude(orgValue);
-      const newValue  = orgValue + random(-magnitude / 2, magnitude / 2);
+  visitLiteral: function(node) {
+    const calleeName = get(node, [ 'parentPath', 'parentPath', 'value', 'callee', 'name' ]);
 
-      path.value.value = newValue;
-      path.value.raw   = `${newValue}`;
+    let newValue;
+
+    if (colorCallees.indexOf(calleeName) >= 0) {
+      newValue = Math.round(random(255)); // TODO: figure out [ r, g, b, a ]
+    }
+    else {
+      // for generic values - try changing within order of magnitude of original value
+      const orgValue  = node.value.value;
+      const magnitude = orderOfMagnitude(orgValue);
+      newValue  = orgValue + random(-magnitude / 2, magnitude / 2);
     }
 
-    this.traverse(path);
-  }
+    node.value.value = newValue;
+    node.value.raw   = `${newValue}`;
+
+    this.traverse(node);
+  },
 });
 
 

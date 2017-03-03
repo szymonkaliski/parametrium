@@ -5,6 +5,10 @@
   "license": "MIT",
   "main": "index.js",
   "dependencies": {
+    "lodash.get": "^4.4.2",
     "recast": "^0.11.22"
+  },
+  "devDependencies": {
+    "nodemon": "^1.11.0"
   }
 }
