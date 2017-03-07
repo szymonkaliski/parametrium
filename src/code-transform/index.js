@@ -1,5 +1,6 @@
 const get    = require('lodash.get');
 const recast = require('recast');
+const times  = require('lodash.times');
 
 const COLOR_CALLEES = [
   'ambientLight',
@@ -15,6 +16,8 @@ const orderOfMagnitude = (n) => {
   return Math.pow(10, order);
 };
 
+const isInt = (n) => n % 1 === 0;
+
 const random = (...args) => {
   if (args.length === 0) {
     return Math.random();
@@ -27,24 +30,39 @@ const random = (...args) => {
   }
 };
 
+const Types = recast.types.namedTypes;
+
 export default (code) => {
   const ast = recast.parse(code);
 
   recast.visit(ast, {
     visitLiteral: function(node) {
+      // console.log(node);
       const calleeName = get(node, [ 'parentPath', 'parentPath', 'value', 'callee', 'name' ]);
 
+      // 5 steps max: "for ( var i = 0..."
+      const insideForStatement = times(5).reduce(({ node, found }, i) => ({
+        found: Types.ForStatement.check(node.value) || found,
+        node:  node.parentPath || node,
+      }), { node, found: false }).found;
+
       let newValue;
+      const orgValue = node.value.value;
 
       if (COLOR_CALLEES.indexOf(calleeName) >= 0) {
         // for colors - be smart about values
-        newValue = Math.round(random(255)); // TODO: figure out how to change this to [ r, g, b, a ]
+        newValue = Math.round(random(255));
+
+        // TODO: figure out if this works for "fill(0, 200, 100)"
       }
       else {
         // for generic values - try changing within order of magnitude of original value
-        const orgValue  = node.value.value;
         const magnitude = orderOfMagnitude(orgValue);
-        newValue  = orgValue + random(-magnitude / 2, magnitude / 2);
+        newValue        = orgValue + random(-magnitude / 2, magnitude / 2);
+      }
+
+      if (insideForStatement && isInt(orgValue)) {
+        newValue = Math.round(newValue);
       }
 
       node.value.value = newValue;
