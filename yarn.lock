@@ -172,6 +172,10 @@ asynckit@^0.4.0:
   version "0.4.0"
   resolved "https://registry.yarnpkg.com/asynckit/-/asynckit-0.4.0.tgz#c79ed97f7f34cb8f2ba1bc9790bcc366474b4b79"
 
+attr-accept@^1.0.3:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/attr-accept/-/attr-accept-1.1.0.tgz#b5cd35227f163935a8f1de10ed3eba16941f6be6"
+
 autoprefixer@6.5.1, autoprefixer@^6.3.1:
   version "6.5.1"
   resolved "https://registry.yarnpkg.com/autoprefixer/-/autoprefixer-6.5.1.tgz#ae759a5221e709f3da17c2d656230e67c43cbb75"
@@ -3760,6 +3764,17 @@ react-dom@^15.4.2:
     fbjs "^0.8.1"
     loose-envify "^1.1.0"
     object-assign "^4.1.0"
+
+react-dropzone@^3.11.0:
+  version "3.11.0"
+  resolved "https://registry.yarnpkg.com/react-dropzone/-/react-dropzone-3.11.0.tgz#bfe270a5a86dd9aa7a969cdaaa7c3c44d000e64a"
+  dependencies:
+    attr-accept "^1.0.3"
+    react-is-deprecated "^0.1.2"
+
+react-is-deprecated@^0.1.2:
+  version "0.1.2"
+  resolved "https://registry.yarnpkg.com/react-is-deprecated/-/react-is-deprecated-0.1.2.tgz#301148f86ea428fe8e673eca7a372160b7579dbd"
 
 react-redux@^5.0.2:
   version "5.0.3"
