@@ -33,7 +33,14 @@ const random = (...args) => {
 const Types = recast.types.namedTypes;
 
 export default (code) => {
-  const ast = recast.parse(code);
+  let ast;
+
+  try {
+    ast = recast.parse(code);
+  }
+  catch (e) {
+    return { error: e, code: null };
+  }
 
   recast.visit(ast, {
     visitLiteral: function(node) {
@@ -72,5 +79,5 @@ export default (code) => {
     },
   });
 
-  return recast.print(ast).code;
+  return { code: recast.print(ast).code, error: null };
 }
