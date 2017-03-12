@@ -6,3 +6,6 @@ node_modules/
 
 # VIM session
 session.vim
+
+# logs
+*.log
