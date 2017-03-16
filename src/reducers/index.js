@@ -1,5 +1,7 @@
 import { fromJS } from 'immutable';
 
+import codeTransform from '../code-transform';
+
 const isDebug = window.location.search.indexOf('debug') >= 0;
 
 let parsed;
@@ -12,7 +14,7 @@ if (isDebug) {
     console.error(e);
   }
 
-  window.clearGraph = () => {
+  window.clearState = () => {
     localStorage.setItem('state', null);
     window.location.reload();
   }
@@ -29,6 +31,12 @@ export default (state = initialState, action) => {
 
   if (isDebug) {
     localStorage.setItem('state', JSON.stringify(state.toJS()));
+  }
+
+  // testing...
+  const code = state.get('inputCode');
+  if (code) {
+    codeTransform(code);
   }
 
   return state;
