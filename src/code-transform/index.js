@@ -98,7 +98,7 @@ const getLiteralNumbers = (code) => {
         // simple "while (var i < 10"
         let isInsideWhile = isInsideStatement(3, Types.WhileStatement.check, node);
 
-        // check for more complex situtation:
+        // more complex situtation:
         // var i = 0;
         // ...
         // for (i; ...
@@ -120,17 +120,32 @@ const getLiteralNumbers = (code) => {
           });
         }
 
-        if (isInsideFor || isInsideWhile) {
-          type = LITERALS.CONTROL;
+        // simple callee(number)
+        let isColor = COLOR_CALLEES.indexOf(calleeName) >= 0;
+
+        // more complex situation:
+        // var c = 255
+        // ...
+        // background(c);
+        if (Types.VariableDeclarator.check(node.parentPath.value)) {
+          const varName = node.parentPath.value.id.name;
+          const scope   = node.scope.lookup(varName);
+
+          traverseBody(scope.node, (body) => {
+            if (Types.ExpressionStatement.check(body)) {
+              if (body.expression.callee) {
+                if (body.expression.arguments.some(({ name }) => name === varName)) {
+                  isColor = true;
+                }
+              }
+            }
+          });
         }
 
-        else if (COLOR_CALLEES.indexOf(calleeName) >= 0) {
-          type = LITERALS.COLOR;
-        }
-
-        else {
-          type = LITERALS.CONSTANT;
-        }
+        // assign type to number
+        if (isInsideFor || isInsideWhile) { type = LITERALS.CONTROL;  }
+        else if (isColor)                 { type = LITERALS.COLOR;    }
+        else                              { type = LITERALS.CONSTANT; }
 
         numbers.push({
           type,

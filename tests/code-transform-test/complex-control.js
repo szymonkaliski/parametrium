@@ -1,6 +1,10 @@
 var i = 0;
 var j = 1;
 
+var r = 200;
+var g = 0;
+var b = 120;
+
 function setup() {
   var points = [];
 
@@ -14,5 +18,5 @@ function setup() {
 }
 
 function draw() {
-  background(clr);
+  background(r, g, b);
 }
