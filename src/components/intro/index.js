@@ -17,26 +17,33 @@ class Intro extends Component {
 
     const reader = new FileReader();
 
-    reader.onload = (e) => this.props.addInputCode(e.target.result);
+    reader.onload = e => this.props.addInputCode(e.target.result);
     reader.readAsText(file);
   }
 
   render() {
-    return <div>
-      <Dropzone
-        accept='text/javascript'
-        onDrop={ this.onDrop }
-        multiple={ false }>
-        <div>
-          Drop P5.js sketch here, or click to select.
-        </div>
-      </Dropzone>
-    </div>;
+    return (
+      <div>
+        <Dropzone
+          accept="text/javascript"
+          onDrop={this.onDrop}
+          multiple={false}
+        >
+          <div>
+            Drop P5.js sketch here, or click to select.
+          </div>
+        </Dropzone>
+      </div>
+    );
   }
 }
 
-const mapDispatchToProps = (dispatch) => bindActionCreators({
-  addInputCode
-}, dispatch);
+const mapDispatchToProps = dispatch =>
+  bindActionCreators(
+    {
+      addInputCode
+    },
+    dispatch
+  );
 
 export default connect(null, mapDispatchToProps)(Intro);
