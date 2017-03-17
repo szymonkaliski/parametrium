@@ -12,29 +12,27 @@ const store = createStore(appStore);
 // import Renderer from './components/renderer';
 // import codeTransform from './code-transform';
 
-
-
 // times(9).map(i => {
 //   const code = codeTransform
 //   return <Renderer key={i} code={code}/>
 
 const App = ({ isInited }) => {
-  return <div>
-    {
-      !isInited ? <Intro/> : <div>TODO: evolve...</div>
-    }
-  </div>;
+  return (
+    <div>
+      {!isInited ? <Intro /> : <div>TODO: evolve...</div>}
+    </div>
+  );
 };
 
-const mapStateToProps = (state) => ({
+const mapStateToProps = state => ({
   isInited: state.get('inputCode') !== undefined
 });
 
 const AppConnected = connect(mapStateToProps)(App);
 
 ReactDOM.render(
-  <Provider store={ store }>
-    <AppConnected/>
+  <Provider store={store}>
+    <AppConnected />
   </Provider>,
   document.getElementById('root')
 );
