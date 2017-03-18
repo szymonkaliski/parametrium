@@ -1,39 +1,13 @@
-const get = require('lodash.get');
-const isArray = require('lodash.isarray');
-const isNumber = require('lodash.isnumber');
-const recast = require('recast');
-const times = require('lodash.times');
-const types = require('ast-types');
+import get from 'lodash.get';
+import isArray from 'lodash.isarray';
+import isNumber from 'lodash.isnumber';
+import recast from 'recast';
+import times from 'lodash.times';
+import types from 'ast-types';
+
+import { LITERAL_TYPES } from '../constants';
 
 const COLOR_CALLEES = ['ambientLight', 'background', 'fill', 'stroke'];
-
-const LITERALS = [
-  'CONSTANT', // just some value
-  'COLOR', // from COLOR_CALLESS
-  'CONTROL' // for & while
-].reduce((acc, key) => ({ ...acc, [key]: key }), {});
-
-// const isInt = n => n % 1 === 0;
-
-// const orderOfMagnitude = n => {
-//   const eps = 0.000000001;
-//   const order = Math.abs(n) < eps
-//     ? 0
-//     : Math.floor(Math.log(n) / Math.LN10 + eps);
-
-//   return Math.pow(10, order);
-// };
-
-// const random = (...args) => {
-//   if (args.length === 0) {
-//     return Math.random();
-//   } else if (args.length === 1) {
-//     return Math.random() * args[0];
-//   } else {
-//     return Math.random() * Math.abs(args[0] - args[1]) +
-//       Math.min(args[0], args[1]);
-//   }
-// };
 
 const Types = recast.types.namedTypes;
 
@@ -83,24 +57,14 @@ export const findNumbers = code => {
   types.visit(ast, {
     visitLiteral: function(node) {
       if (isNumber(node.value.value)) {
-        let type = LITERALS.CONSTANT;
-        const calleeName = get(node, [
-          'parentPath',
-          'parentPath',
-          'value',
-          'callee',
-          'name'
-        ]);
+        let type = LITERAL_TYPES.CONSTANT;
+        const calleeName = get(node, ['parentPath', 'parentPath', 'value', 'callee', 'name']);
 
         // simple "for (var i = 0..."
         let isInsideFor = isInsideStatement(5, Types.ForStatement.check, node);
 
         // simple "while (var i < 10"
-        let isInsideWhile = isInsideStatement(
-          3,
-          Types.WhileStatement.check,
-          node
-        );
+        let isInsideWhile = isInsideStatement(3, Types.WhileStatement.check, node);
 
         // more complex situtation:
         // var i = 0;
@@ -137,9 +101,7 @@ export const findNumbers = code => {
           traverseBody(scope.node, body => {
             if (Types.ExpressionStatement.check(body)) {
               if (body.expression.callee) {
-                if (
-                  body.expression.arguments.some(({ name }) => name === varName)
-                ) {
+                if (body.expression.arguments.some(({ name }) => name === varName)) {
                   isColor = true;
                 }
               }
@@ -149,11 +111,11 @@ export const findNumbers = code => {
 
         // assign type to number
         if (isInsideFor || isInsideWhile) {
-          type = LITERALS.CONTROL;
+          type = LITERAL_TYPES.CONTROL;
         } else if (isColor) {
-          type = LITERALS.COLOR;
+          type = LITERAL_TYPES.COLOR;
         } else {
-          type = LITERALS.CONSTANT;
+          type = LITERAL_TYPES.CONSTANT;
         }
 
         numbers.push({

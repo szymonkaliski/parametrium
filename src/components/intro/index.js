@@ -24,11 +24,7 @@ class Intro extends Component {
   render() {
     return (
       <div>
-        <Dropzone
-          accept="text/javascript"
-          onDrop={this.onDrop}
-          multiple={false}
-        >
+        <Dropzone accept="text/javascript" onDrop={this.onDrop} multiple={false}>
           <div>
             Drop P5.js sketch here, or click to select.
           </div>

@@ -28,9 +28,7 @@ const initialState = fromJS(
 
 export default (state = initialState, action) => {
   if (action.type === 'ADD_INPUT_CODE') {
-    state = state
-      .set('inputCode', action.code)
-      .set('inputNumbers', findNumbers(action.code));
+    state = state.set('inputCode', action.code).set('inputNumbers', findNumbers(action.code));
   }
 
   if (isDebug) {
