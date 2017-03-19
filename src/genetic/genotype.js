@@ -8,8 +8,7 @@ import { MUTATION_CHANCE, LITERAL_TYPES, SPREADS } from '../constants';
 // mutations for different literals
 const MUTATIONS = {
   [LITERAL_TYPES.CONSTANT]: num => {
-    const order = orderOfMagnitude(num);
-    const value = Math.pow(10, order);
+    const value = orderOfMagnitude(num);
 
     return num + random(-value * SPREADS.COLOR, value * SPREADS.COLOR);
   },
@@ -19,8 +18,7 @@ const MUTATIONS = {
   },
 
   [LITERAL_TYPES.CONTROL]: num => {
-    const order = orderOfMagnitude(num);
-    const value = Math.pow(10, order);
+    const value = orderOfMagnitude(num);
     const newNum = num + random(-value * SPREADS.COLOR, value * SPREADS.COLOR);
 
     return isInt(num) ? Math.round(newNum) : newNum;
@@ -38,10 +36,10 @@ export const crossover = (parentA, parentB) => {
   return createGenotype(code);
 };
 
-export const mutate = genotype => {
+export const mutate = (genotype, mutationChance = MUTATION_CHANCE) => {
   // MUTATION_CHANCE that given value will be random
   const code = genotype.get('code').map(number => {
-    if (!chance(MUTATION_CHANCE)) {
+    if (!chance(mutationChance)) {
       return number;
     }
 

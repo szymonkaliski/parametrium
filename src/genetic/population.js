@@ -36,8 +36,11 @@ const rouletteIdx = (normalizedFitnesses, sumFitnesses) => {
   ).idx;
 };
 
-export const createPopulation = populationSize => {
-  return fromJS(times(populationSize).map(() => createGenotype()));
+export const createPopulation = (populationSize, numbers) => {
+  // start with random mutated population,
+  // chance overwritten to 0.5, to make sure it happens
+  const mutationChance = 0.5;
+  return fromJS(times(populationSize).map(() => mutate(createGenotype(numbers), mutationChance)));
 };
 
 export const evolvePopulation = (inPopulation, history) => {

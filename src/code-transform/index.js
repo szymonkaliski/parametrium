@@ -147,6 +147,8 @@ export const replaceNumbers = (code, numbers) => {
 
       node.value.value = number;
       node.value.raw = `${number}`;
+
+      this.traverse(node);
     }
   });
 

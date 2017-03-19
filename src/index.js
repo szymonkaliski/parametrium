@@ -4,22 +4,16 @@ import { connect, Provider } from 'react-redux';
 import { createStore } from 'redux';
 
 import Intro from './components/intro';
+import Population from './components/population';
 
 import appStore from './reducers';
 
 const store = createStore(appStore);
 
-// import Renderer from './components/renderer';
-// import codeTransform from './code-transform';
-
-// times(9).map(i => {
-//   const code = codeTransform
-//   return <Renderer key={i} code={code}/>
-
 const App = ({ isInited }) => {
   return (
     <div>
-      {!isInited ? <Intro /> : <div>TODO: evolve...</div>}
+      {!isInited ? <Intro /> : <Population />}
     </div>
   );
 };

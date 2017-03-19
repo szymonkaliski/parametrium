@@ -17,7 +17,7 @@ export const random = (...args) => {
   } else if (args.length === 1) {
     return seed.random() * args[0];
   } else {
-    return seed.random() * Math.abs(args[0] - args[1]) + seed.min(args[0], args[1]);
+    return seed.random() * Math.abs(args[0] - args[1]) + Math.min(args[0], args[1]);
   }
 };
 

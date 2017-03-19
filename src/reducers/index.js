@@ -1,6 +1,9 @@
 import { fromJS } from 'immutable';
 
-import { findNumbers, replaceNumbers } from '../code-transform';
+import { createPopulation } from '../genetic/population';
+import { findNumbers } from '../code-transform';
+
+import { POPULATION_SIZE } from '../constants';
 
 const isDebug = window.location.search.indexOf('debug') >= 0;
 
@@ -28,7 +31,12 @@ const initialState = fromJS(
 
 export default (state = initialState, action) => {
   if (action.type === 'ADD_INPUT_CODE') {
-    state = state.set('inputCode', action.code).set('inputNumbers', findNumbers(action.code));
+    const numbers = findNumbers(action.code);
+
+    state = state
+      .set('inputCode', action.code)
+      .set('inputNumbers', numbers)
+      .set('population', createPopulation(POPULATION_SIZE, numbers));
   }
 
   if (isDebug) {
