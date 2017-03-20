@@ -6,20 +6,15 @@ import { random } from '../utils';
 
 const prop = key => obj => obj.get(key);
 
-const dist = (xs, ys) => {
-  return Math.sqrt(xs.map((x, i) => Math.pow(x - ys.get(i), 2)).reduce((acc, diff) => acc + diff, 0));
-};
+const dist = (xs, ys) => Math.sqrt(xs.map((x, i) => Math.pow(x - ys.get(i), 2)).reduce((acc, diff) => acc + diff, 0));
 
-const calculateFitness = (genotype, bestFits) => {
-  return bestFits
-    .map(bestFit => dist(bestFit.get('code').map(prop('value')), genotype.get('code').prop('value')))
+const calculateFitness = (genotype, bestFits) =>
+  bestFits
+    .map(bestFit => dist(bestFit.get('code').map(prop('value')), genotype.get('code').map(prop('value'))))
     .reduce((acc, dist) => acc + dist, 0) / bestFits.count();
-};
 
-const rouletteIdx = (normalizedFitnesses, sumFitnesses) => {
-  const value = random() * sumFitnesses;
-
-  return normalizedFitnesses.reduce(
+const rouletteIdx = (normalizedFitnesses, sumFitnesses) =>
+  normalizedFitnesses.reduce(
     (acc, fitness, idx) => {
       if (!acc.idx) {
         const newValue = acc.value - fitness;
@@ -32,9 +27,8 @@ const rouletteIdx = (normalizedFitnesses, sumFitnesses) => {
         return acc;
       }
     },
-    { value, idx: undefined }
+    { value: random(sumFitnesses), idx: undefined }
   ).idx;
-};
 
 export const createPopulation = (populationSize, numbers) => {
   // start with random mutated population,
@@ -47,9 +41,7 @@ export const evolvePopulation = (inPopulation, history) => {
   let newPopulation = List();
 
   // add fitnesses to population (the smaller the better)
-  const population = inPopulation.map(genotype => {
-    return genotype.set('fitness', calculateFitness(genotype, history));
-  });
+  const population = inPopulation.map(genotype => genotype.set('fitness', calculateFitness(genotype, history)));
 
   // normalize and sum fitnesses
   const maxFitnesses = Math.max(...population.map(prop('fitness')));
@@ -81,6 +73,4 @@ export const evolvePopulation = (inPopulation, history) => {
     .sort((a, b) => a.get('fitness') - b.get('fitness'));
 };
 
-export const getGenotype = (population, id) => {
-  return population.find(genotype => genotype.get('id') === id);
-};
+export const getGenotype = (population, id) => population.find(genotype => genotype.get('id') === id);

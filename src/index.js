@@ -1,14 +1,15 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import thunk from 'redux-thunk';
+import { applyMiddleware, createStore } from 'redux';
 import { connect, Provider } from 'react-redux';
-import { createStore } from 'redux';
 
 import Intro from './components/intro';
 import Population from './components/population';
 
 import appStore from './reducers';
 
-const store = createStore(appStore);
+const store = createStore(appStore, applyMiddleware(thunk));
 
 const App = ({ isInited }) => {
   return (

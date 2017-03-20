@@ -8,7 +8,7 @@ import { MUTATION_CHANCE, LITERAL_TYPES, SPREADS } from '../constants';
 // mutations for different literals
 const MUTATIONS = {
   [LITERAL_TYPES.CONSTANT]: num => {
-    const value = orderOfMagnitude(num);
+    const value = orderOfMagnitude(Math.abs(num));
 
     return num + random(-value * SPREADS.COLOR, value * SPREADS.COLOR);
   },
@@ -43,7 +43,13 @@ export const mutate = (genotype, mutationChance = MUTATION_CHANCE) => {
       return number;
     }
 
-    return number.update('value', value => MUTATIONS[number.get('type')](value));
+    const mutated = MUTATIONS[number.get('type')](number.get('value'));
+
+    if (isNaN(number.get('value')) || isNaN(mutated)) {
+      console.log(mutated, number.toJS());
+    }
+
+    return number.set('value', mutated);
   });
 
   return createGenotype(code);

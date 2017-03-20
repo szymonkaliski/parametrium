@@ -24,8 +24,10 @@ if (isDebug) {
 
 const initialState = fromJS(
   parsed || {
+    isEvolving: false,
     inputCode: undefined,
-    inputNumbers: []
+    inputNumbers: [],
+    history: []
   }
 );
 
@@ -39,9 +41,19 @@ export default (state = initialState, action) => {
       .set('population', createPopulation(POPULATION_SIZE, numbers));
   }
 
+  if (action.type === 'EVOLVE_GENOTYPE_START') {
+    state = state.set('isEvolving', true);
+  }
+
+  if (action.type === 'EVOLVE_GENOTYPE_DONE') {
+    state = state.set('population', action.population).set('history', action.history).set('isEvolving', false);
+  }
+
   if (isDebug) {
     localStorage.setItem('state', JSON.stringify(state.toJS()));
   }
+
+  console.log(state.toJS());
 
   return state;
 };

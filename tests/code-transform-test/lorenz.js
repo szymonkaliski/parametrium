@@ -28,6 +28,7 @@ function draw() {
   background(100);
 
   ambientLight(255);
+  fill(120);
 
   scale(3);
   rotateX(3);
