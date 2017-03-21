@@ -1,32 +1,24 @@
 import React from 'react';
 
+import './index.css';
+
 const LIB_URL = '//cdnjs.cloudflare.com/ajax/libs/p5.js/0.5.7/p5.js';
 
-const Renderer = ({ code }) => {
-  return (
-    <iframe
-      width={360}
-      height={360}
-      srcDoc={
-        `
-      <style>
+const generateHTML = code => {
+  return `
+    <style>
       * { margin: 0; padding: 0; }
-      </style>
+    </style>
 
-      <script type="text/javascript" src="${LIB_URL}"></script>
+    <script type="text/javascript" src="${LIB_URL}"></script>
 
-      <script type="text/javascript">
-        ${code}
-      </script>
-    `
-      }
-      style={{
-        border: '1px solid #eee',
-        padding: 4,
-        margin: 10
-      }}
-    />
-  );
+    <script type="text/javascript">
+      ${code}
+    </script>`;
 };
+
+const Renderer = ({ code, width, height }) => (
+  <iframe className="iframe" width={width} height={height} srcDoc={generateHTML(code)} />
+);
 
 export default Renderer;

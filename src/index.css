@@ -1,0 +1,14 @@
+/* colorscheme https://chriskempson.github.io/base16/css/base16-default-dark.css */
+
+@import url('https://fonts.googleapis.com/css?family=Cousine');
+
+* {
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  height: 100%;
+  background: #181818;
+  font-family: 'Cousine', monospace;
+}

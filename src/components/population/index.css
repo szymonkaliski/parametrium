@@ -1,0 +1,19 @@
+.population {
+  width: 100%;
+}
+
+.population__pheontype {
+  display: inline-block;
+  margin-bottom: 14px;
+}
+
+.population__evolve-btn {
+  color: #585858;
+  font-size: 13px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.population__evolve-btn:hover {
+  color: #383838;
+}

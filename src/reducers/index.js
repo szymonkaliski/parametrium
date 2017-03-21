@@ -53,7 +53,5 @@ export default (state = initialState, action) => {
     localStorage.setItem('state', JSON.stringify(state.toJS()));
   }
 
-  console.log(state.toJS());
-
   return state;
 };

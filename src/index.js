@@ -9,15 +9,11 @@ import Population from './components/population';
 
 import appStore from './reducers';
 
+import './index.css';
+
 const store = createStore(appStore, applyMiddleware(thunk));
 
-const App = ({ isInited }) => {
-  return (
-    <div>
-      {!isInited ? <Intro /> : <Population />}
-    </div>
-  );
-};
+const App = ({ isInited }) => !isInited ? <Intro /> : <Population />;
 
 const mapStateToProps = state => ({
   isInited: state.get('inputCode') !== undefined
