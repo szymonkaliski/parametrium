@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { Component } from 'react';
+import autobind from 'react-autobind';
 
 import './index.css';
 
@@ -17,8 +18,35 @@ const generateHTML = code => {
     </script>`;
 };
 
-const Renderer = ({ code, width, height }) => (
-  <iframe className="iframe" width={width} height={height} srcDoc={generateHTML(code)} />
-);
+class Renderer extends Component {
+  constructor() {
+    super();
+
+    autobind(this);
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.width !== this.props.width || prevProps.height !== this.props.height) {
+      // reload ref iframe srcdoc to get new window size in the code (if it uses window.innerWidth/Height to set canvas)
+      if (prevProps.code === this.props.code) {
+        this.refIframe.srcdoc = generateHTML(this.props.code);
+      }
+    }
+  }
+
+  onRef(ref) {
+    this.refIframe = ref;
+  }
+
+  render() {
+    const { width, height, code } = this.props;
+
+    if (!code) {
+      return null;
+    }
+
+    return <iframe ref={this.onRef} className="iframe" width={width} height={height} srcDoc={generateHTML(code)} />;
+  }
+}
 
 export default Renderer;
