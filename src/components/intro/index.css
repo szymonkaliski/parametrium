@@ -1,0 +1,53 @@
+.intro {
+  position: relative;
+  height: 100vh;
+}
+
+.intro__content {
+  position: absolute;
+
+  top: 50%;
+  left: 50%;
+
+  margin: -150px 0 0 -150px;
+
+  width: 300px;
+  height: 300px;
+}
+
+.intro__text {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  right: 0%;
+
+  margin-top: -250px;
+
+  text-align: center;
+
+  color: #585858;
+}
+
+.intro__logo {
+  color: #b8b8b8;
+}
+
+.dropzone {
+  color: #585858;
+  height: 100%;
+  text-align: center;
+  display: table;
+  cursor: pointer;
+  border: 1px solid #383838;
+}
+
+.dropzone:hover,
+.dropzone--active {
+  color: #383838;
+  border: 1px solid #282828;
+}
+
+.dropzone__text {
+  display: table-cell;
+  vertical-align: middle;
+}

@@ -45,7 +45,16 @@ class Renderer extends Component {
       return null;
     }
 
-    return <iframe ref={this.onRef} className="iframe" width={width} height={height} srcDoc={generateHTML(code)} />;
+    return (
+      <iframe
+        ref={this.onRef}
+        className="iframe"
+        scrolling="no"
+        width={width}
+        height={height}
+        srcDoc={generateHTML(code)}
+      />
+    );
   }
 }
 

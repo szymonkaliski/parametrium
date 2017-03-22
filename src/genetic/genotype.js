@@ -46,7 +46,8 @@ export const mutate = (genotype, mutationChance = MUTATION_CHANCE) => {
     const mutated = MUTATIONS[number.get('type')](number.get('value'));
 
     if (isNaN(number.get('value')) || isNaN(mutated)) {
-      console.log(mutated, number.toJS());
+      console.warning('NaN in mutation', mutated, number.toJS());
+      return number;
     }
 
     return number.set('value', mutated);

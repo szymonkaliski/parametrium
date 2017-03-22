@@ -21,7 +21,6 @@ export const evolveGenotypeDone = (population, history) => ({
 
 export const evolveGenotype = id =>
   (dispatch, getState) => {
-    console.log('evolve start...', id)
     dispatch(evolveGenotypeStart(id));
 
     const evolutionWorker = new EvolutionWorker();
@@ -38,8 +37,6 @@ export const evolveGenotype = id =>
 
     evolutionWorker.addEventListener('message', event => {
       const data = fromJSON(event.data);
-
-      console.log('got data back', data.toJS());
 
       dispatch(evolveGenotypeDone(data.get('population'), data.get('history')));
 

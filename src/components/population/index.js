@@ -53,7 +53,7 @@ class Population extends Component {
     const rendererHeight = rendererWidth;
 
     return (
-      <div ref={this.onRef} className='population'>
+      <div ref={this.onRef} className="population">
         {times(9).map(i => {
           const genotype = population.get(i);
           const numbers = genotype.get('code').toJS();
@@ -61,9 +61,9 @@ class Population extends Component {
           const id = genotype.get('id');
 
           return (
-            <div key={id} className='population__pheontype'>
+            <div key={id} className="population__pheontype">
               <Renderer code={code} width={rendererWidth} height={rendererHeight} />
-              <div className='population__evolve-btn' onClick={() => evolveGenotype(id)}>evolve</div>
+              <div className="population__evolve-btn" onClick={() => evolveGenotype(id)}>evolve</div>
             </div>
           );
         })}

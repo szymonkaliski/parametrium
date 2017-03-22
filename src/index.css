@@ -12,3 +12,8 @@ body {
   background: #181818;
   font-family: 'Cousine', monospace;
 }
+
+#root {
+  min-height: 100vh;
+  font-size: 13px;
+}
