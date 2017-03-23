@@ -18,7 +18,7 @@ const MUTATIONS = {
   },
 
   [LITERAL_TYPES.CONTROL]: num => {
-    const value = orderOfMagnitude(num);
+    const value = orderOfMagnitude(Math.abs(num));
     const newNum = num + random(-value * SPREADS.COLOR, value * SPREADS.COLOR);
 
     return isInt(num) ? Math.round(newNum) : newNum;
@@ -46,7 +46,7 @@ export const mutate = (genotype, mutationChance = MUTATION_CHANCE) => {
     const mutated = MUTATIONS[number.get('type')](number.get('value'));
 
     if (isNaN(number.get('value')) || isNaN(mutated)) {
-      console.warning('NaN in mutation', mutated, number.toJS());
+      console.warn('NaN in mutation', mutated, number.toJS());
       return number;
     }
 

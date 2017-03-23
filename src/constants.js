@@ -1,7 +1,8 @@
 export const HISTORY_SIZE = 3;
+export const DISPLAY_PER_PAGE = 9;
 
 export const MUTATION_CHANCE = 0.01;
-export const POPULATION_SIZE = 1000;
+export const POPULATION_SIZE = DISPLAY_PER_PAGE * 100;
 
 export const SPREADS = {
   CONSTANT: 0.75,

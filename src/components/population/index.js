@@ -6,6 +6,9 @@ import { connect } from 'react-redux';
 
 import { replaceNumbers } from '../../code-transform';
 import { evolveGenotype } from '../../actions';
+import { clamp } from '../../utils';
+
+import { DISPLAY_PER_PAGE, POPULATION_SIZE } from '../../constants';
 
 import Renderer from '../renderer';
 
@@ -19,7 +22,8 @@ class Population extends Component {
 
     this.state = {
       pageIdx: 0,
-      width: 0
+      width: 0,
+      height: 0
     };
   }
 
@@ -29,6 +33,12 @@ class Population extends Component {
 
   componentWillUnmount() {
     window.removeEventListener('resize', this.onResize);
+  }
+
+  moveOffset(dir) {
+    this.setState({
+      pageIdx: clamp(this.state.pageIdx + dir, 0, POPULATION_SIZE / DISPLAY_PER_PAGE)
+    });
   }
 
   onResize() {
@@ -43,30 +53,39 @@ class Population extends Component {
   }
 
   render() {
-    const { width } = this.state;
+    const { width, pageIdx } = this.state;
     const { inputCode, population, evolveGenotype } = this.props;
 
     const marginWidth = 8;
     const paddingWidth = 8;
     const borderWidth = 1;
+
     const rendererWidth = Math.floor(width / 3 - 2 * (marginWidth + paddingWidth + borderWidth));
     const rendererHeight = rendererWidth;
 
     return (
-      <div ref={this.onRef} className="population">
-        {times(9).map(i => {
-          const genotype = population.get(i);
-          const numbers = genotype.get('code').toJS();
-          const code = replaceNumbers(inputCode, numbers);
-          const id = genotype.get('id');
+      <div className="population">
+        <div ref={this.onRef} className="population__content">
+          {times(DISPLAY_PER_PAGE).map(i => {
+            const genotype = population.get(pageIdx * DISPLAY_PER_PAGE + i);
+            const numbers = genotype.get('code').toJS();
+            const code = replaceNumbers(inputCode, numbers);
+            const id = genotype.get('id');
 
-          return (
-            <div key={id} className="population__pheontype">
-              <Renderer code={code} width={rendererWidth} height={rendererHeight} />
-              <div className="population__evolve-btn" onClick={() => evolveGenotype(id)}>evolve</div>
-            </div>
-          );
-        })}
+            return (
+              <div key={id} className="population__pheontype">
+                <Renderer code={code} width={rendererWidth} height={rendererHeight} />
+                <div className="population__evolve-btn" onClick={() => evolveGenotype(id)}>evolve</div>
+              </div>
+            );
+          })}
+        </div>
+
+        <div className="population__nav">
+          <div onClick={() => this.moveOffset(-1)} className="population__nav-btn">{'<<<'}</div>
+          <div className="population__nav-text">{pageIdx + 1} / {POPULATION_SIZE / DISPLAY_PER_PAGE}</div>
+          <div onClick={() => this.moveOffset(+1)} className="population__nav-btn">{'>>>'}</div>
+        </div>
       </div>
     );
   }
