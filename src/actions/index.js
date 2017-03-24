@@ -8,6 +8,15 @@ export const addInputCode = code => ({
   code
 });
 
+export const showCode = code => ({
+  type: 'SHOW_CODE',
+  code
+});
+
+export const hideCode = () => ({
+  type: 'HIDE_CODE'
+});
+
 export const evolveGenotypeStart = id => ({
   type: 'EVOLVE_GENOTYPE_START',
   id

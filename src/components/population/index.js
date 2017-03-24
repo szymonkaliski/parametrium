@@ -5,7 +5,7 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import { replaceNumbers } from '../../code-transform';
-import { evolveGenotype } from '../../actions';
+import { evolveGenotype, showCode } from '../../actions';
 import { clamp } from '../../utils';
 
 import { DISPLAY_PER_PAGE, POPULATION_SIZE } from '../../constants';
@@ -54,7 +54,7 @@ class Population extends Component {
 
   render() {
     const { width, pageIdx } = this.state;
-    const { inputCode, population, evolveGenotype } = this.props;
+    const { inputCode, population, evolveGenotype, showCode } = this.props;
 
     const marginWidth = 8;
     const paddingWidth = 8;
@@ -75,7 +75,10 @@ class Population extends Component {
             return (
               <div key={id} className="population__pheontype">
                 <Renderer code={code} width={rendererWidth} height={rendererHeight} />
-                <div className="population__evolve-btn" onClick={() => evolveGenotype(id)}>evolve</div>
+                <div className="population__phenotype-btns">
+                  <div className="population__phenotype-btn" onClick={() => evolveGenotype(id)}>evolve</div>
+                  <div className="population__phenotype-btn" onClick={() => showCode(code)}>code</div>
+                </div>
               </div>
             );
           })}
@@ -96,6 +99,6 @@ const mapStateToProps = state => ({
   population: state.get('population')
 });
 
-const mapDispatchToProps = dispatch => bindActionCreators({ evolveGenotype }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ evolveGenotype, showCode }, dispatch);
 
 export default connect(mapStateToProps, mapDispatchToProps)(Population);

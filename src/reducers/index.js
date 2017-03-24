@@ -27,7 +27,9 @@ const initialState = fromJS(
     isEvolving: false,
     inputCode: undefined,
     inputNumbers: [],
-    history: []
+    population: [],
+    history: [],
+    showCode: false
   }
 );
 
@@ -47,6 +49,15 @@ export default (state = initialState, action) => {
 
   if (action.type === 'EVOLVE_GENOTYPE_DONE') {
     state = state.set('population', action.population).set('history', action.history).set('isEvolving', false);
+  }
+
+  if (action.type === 'SHOW_CODE') {
+    state = state.set('showCode', action.code);
+    console.log(state.get('showCode'))
+  }
+
+  if (action.type === 'HIDE_CODE') {
+    state = state.set('showCode', false);
   }
 
   if (isDebug) {

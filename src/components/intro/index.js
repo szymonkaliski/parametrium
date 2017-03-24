@@ -28,7 +28,7 @@ class Intro extends Component {
       <div className="intro">
 
         <div className="intro__text">
-          Welcome to <span className="intro__logo">Parametrium</span> — interactive parameter space explorer for P5.js
+          welcome to <span className="intro__logo">Parametrium</span> — interactive parameter space explorer for P5.js
         </div>
 
         <div className="intro__content">
@@ -40,7 +40,7 @@ class Intro extends Component {
             multiple={false}
           >
             <span className="dropzone__text">
-              Drop P5.js sketch here, or click to select.
+              drop sketch here, or click to select
             </span>
           </Dropzone>
         </div>

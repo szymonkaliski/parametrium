@@ -15,13 +15,22 @@
   margin-bottom: 14px;
 }
 
-.population__evolve-btn {
+.population__phenotype-btns {
+  width: 100%;
+}
+
+.population__phenotype-btn {
   color: #585858;
   text-align: center;
   cursor: pointer;
+
+  width: 50%;
+  display: inline-block;
+
+  transition: color 200ms;
 }
 
-.population__evolve-btn:hover {
+.population__phenotype-btn:hover {
   color: #383838;
 }
 
@@ -41,6 +50,8 @@
   cursor: pointer;
   color: #585858;
   float: left;
+
+  transition: color 200ms;
 }
 
 .population__nav-btn:last-child {

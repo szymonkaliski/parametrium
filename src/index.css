@@ -1,5 +1,3 @@
-/* colorscheme https://chriskempson.github.io/base16/css/base16-default-dark.css */
-
 @import url('https://fonts.googleapis.com/css?family=Cousine');
 
 * {
@@ -16,4 +14,22 @@ body {
 #root {
   min-height: 100vh;
   font-size: 13px;
+}
+
+.modal-evolving {
+  display: table;
+  height: 100vh;
+  width: 100%;
+}
+
+.modal-evolving__content {
+  display: table-cell;
+  vertical-align: middle;
+  text-align: center;
+  color: #181818;
+}
+
+.content-no-scroll {
+  height: 100vh;
+  overflow: hidden;
 }

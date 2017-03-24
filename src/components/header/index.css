@@ -1,0 +1,11 @@
+.header {
+  margin-top: 40px;
+  width: 100%;
+  text-align: center;
+  color: #585858;
+}
+
+.header__logo {
+  color: #b8b8b8;
+  font-style: italic;
+}
