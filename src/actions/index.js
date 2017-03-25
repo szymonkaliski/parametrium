@@ -52,3 +52,7 @@ export const evolveGenotype = id =>
       evolutionWorker.terminate();
     });
   };
+
+export const resetApp = () => ({
+  type: 'RESET_APP'
+});

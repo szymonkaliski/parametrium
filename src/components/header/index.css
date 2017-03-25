@@ -1,11 +1,34 @@
 .header {
-  margin-top: 40px;
-  width: 100%;
+  margin: 40px 50px 0 50px;
+}
+
+.header__content {
   text-align: center;
   color: #585858;
+
+  width: 100%;
+  max-width: 1280px;
 }
 
 .header__logo {
   color: #b8b8b8;
   font-style: italic;
+}
+
+.header__btn {
+  color: #585858;
+  text-align: center;
+  cursor: pointer;
+}
+
+.header__btn:hover {
+  color: #383838;
+}
+
+.header__btn-reset {
+  float: left;
+}
+
+.header__btn-info {
+  float: right;
 }

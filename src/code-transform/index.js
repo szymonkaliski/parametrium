@@ -142,11 +142,13 @@ export const replaceNumbers = (code, numbers) => {
 
   types.visit(ast, {
     visitLiteral: function(node) {
-      const { value: number } = numbers[idx];
-      idx++;
+      if (isNumber(node.value.value)) {
+        const { value: number } = numbers[idx];
+        idx++;
 
-      node.value.value = number;
-      node.value.raw = `${number}`;
+        node.value.value = number;
+        node.value.raw = `${number}`;
+      }
 
       this.traverse(node);
     }

@@ -42,9 +42,11 @@ class Population extends Component {
   }
 
   onResize() {
-    this.setState({
-      width: this.refWrapper.clientWidth
-    });
+    if (this.refWrapper) {
+      this.setState({
+        width: this.refWrapper.clientWidth
+      });
+    }
   }
 
   onRef(ref) {

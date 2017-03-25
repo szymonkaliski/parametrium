@@ -22,20 +22,20 @@ if (isDebug) {
   };
 }
 
-const initialState = fromJS(
-  parsed || {
-    isEvolving: false,
-    inputCode: undefined,
-    inputNumbers: [],
-    population: [],
-    history: [],
-    showCode: false
-  }
-);
+const emptyState = {
+  isEvolving: false,
+  inputCode: undefined,
+  inputNumbers: [],
+  population: [],
+  history: [],
+  showCode: false
+};
+
+const initialState = fromJS(parsed || emptyState);
 
 export default (state = initialState, action) => {
   if (action.type === 'ADD_INPUT_CODE') {
-    const numbers = findNumbers(action.code);
+    const numbers = fromJS(findNumbers(action.code));
 
     state = state
       .set('inputCode', action.code)
@@ -53,11 +53,14 @@ export default (state = initialState, action) => {
 
   if (action.type === 'SHOW_CODE') {
     state = state.set('showCode', action.code);
-    console.log(state.get('showCode'))
   }
 
   if (action.type === 'HIDE_CODE') {
     state = state.set('showCode', false);
+  }
+
+  if (action.type === 'RESET_APP') {
+    state = fromJS(emptyState);
   }
 
   if (isDebug) {
