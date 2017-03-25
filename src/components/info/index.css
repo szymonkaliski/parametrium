@@ -1,0 +1,38 @@
+.info {
+  max-width: 600px;
+  width: 90%;
+  margin: 0 auto;
+  margin-top: 60px;
+  margin-bottom: 60px;
+  max-height: calc(100vh - 120px);
+  overflow: scroll;
+
+  color: #181818;
+}
+
+.info__p {
+  margin-top: 20px
+}
+
+.info__logo {
+  color: #383838;
+  font-style: italic;
+}
+
+.info__close-btn {
+  text-align: right;
+  margin-bottom: 20px;
+
+  color: #383838;
+  cursor: pointer;
+
+  transition: color 200ms;
+}
+
+.info__close-btn:hover {
+  color: #181818;
+}
+
+.info__link {
+  color: #181818;
+}

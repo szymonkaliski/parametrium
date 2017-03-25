@@ -28,7 +28,8 @@ const emptyState = {
   inputNumbers: [],
   population: [],
   history: [],
-  showCode: false
+  showCode: false,
+  showInfo: false
 };
 
 const initialState = fromJS(parsed || emptyState);
@@ -57,6 +58,14 @@ export default (state = initialState, action) => {
 
   if (action.type === 'HIDE_CODE') {
     state = state.set('showCode', false);
+  }
+
+  if (action.type === 'SHOW_INFO') {
+    state = state.set('showInfo', true);
+  }
+
+  if (action.type === 'HIDE_INFO') {
+    state = state.set('showInfo', false);
   }
 
   if (action.type === 'RESET_APP') {

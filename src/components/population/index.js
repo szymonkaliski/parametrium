@@ -41,6 +41,12 @@ class Population extends Component {
     });
   }
 
+  resetPage() {
+    this.setState({
+      pageIdx: 0
+    });
+  }
+
   onResize() {
     if (this.refWrapper) {
       this.setState({
@@ -78,7 +84,15 @@ class Population extends Component {
               <div key={id} className="population__pheontype">
                 <Renderer code={code} width={rendererWidth} height={rendererHeight} />
                 <div className="population__phenotype-btns">
-                  <div className="population__phenotype-btn" onClick={() => evolveGenotype(id)}>evolve</div>
+                  <div
+                    className="population__phenotype-btn"
+                    onClick={() => {
+                      this.resetPage();
+                      evolveGenotype(id);
+                    }}
+                  >
+                    evolve
+                  </div>
                   <div className="population__phenotype-btn" onClick={() => showCode(code)}>code</div>
                 </div>
               </div>

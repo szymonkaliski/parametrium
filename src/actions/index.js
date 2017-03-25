@@ -17,6 +17,14 @@ export const hideCode = () => ({
   type: 'HIDE_CODE'
 });
 
+export const showInfo = () => ({
+  type: 'SHOW_INFO'
+});
+
+export const hideInfo = () => ({
+  type: 'HIDE_INFO'
+});
+
 export const evolveGenotypeStart = id => ({
   type: 'EVOLVE_GENOTYPE_START',
   id

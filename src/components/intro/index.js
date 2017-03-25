@@ -4,7 +4,7 @@ import autobind from 'react-autobind';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import { addInputCode } from '../../actions';
+import { addInputCode, showInfo } from '../../actions';
 
 import './index.css';
 
@@ -26,9 +26,9 @@ class Intro extends Component {
   render() {
     return (
       <div className="intro">
-
         <div className="intro__text">
           welcome to <span className="intro__logo">Parametrium</span> — interactive parameter space explorer for P5.js
+          <div className="intro__info-btn" onClick={this.props.showInfo}>info</div>
         </div>
 
         <div className="intro__content">
@@ -49,6 +49,6 @@ class Intro extends Component {
   }
 }
 
-const mapDispatchToProps = dispatch => bindActionCreators({ addInputCode }, dispatch);
+const mapDispatchToProps = dispatch => bindActionCreators({ addInputCode, showInfo }, dispatch);
 
 export default connect(null, mapDispatchToProps)(Intro);

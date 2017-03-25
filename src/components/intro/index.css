@@ -28,6 +28,18 @@
   color: #585858;
 }
 
+.intro__info-btn {
+  margin-top: 10px;
+  color: #383838;
+  cursor: pointer;
+
+  transition: color 200ms;
+}
+
+.intro__info-btn:hover {
+  color: #585858;
+}
+
 .intro__logo {
   color: #b8b8b8;
   font-style: italic;
