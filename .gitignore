@@ -9,3 +9,6 @@ session.vim
 
 # logs
 *.log
+
+# production build
+build/
