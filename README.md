@@ -2,7 +2,7 @@
 
 ## Interactive parameter space explorer for P5.js
 
-<p align="center"><img src="assets/screen.png" alt="screenshot" style="max-width:100%;"></p>
+<p align="center"><img src="assets/demo.gif" alt="screenshot" style="max-width:100%;"></p>
 
 Live: [http://szymonkaliski.github.io/parametrium](http://szymonkaliski.github.io/parametrium)
 

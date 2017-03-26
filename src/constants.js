@@ -1,13 +1,13 @@
 export const HISTORY_SIZE = 3;
 export const DISPLAY_PER_PAGE = 9;
 
-export const MUTATION_CHANCE = 0.01;
+export const MUTATION_CHANCE = 0.005;
 export const POPULATION_SIZE = DISPLAY_PER_PAGE * 100;
 
 export const SPREADS = {
-  CONSTANT: 0.75,
-  COLOR: 0.75,
-  CONTROL: 0.75
+  CONSTANT: 0.25,
+  COLOR: 0.25,
+  CONTROL: 0.25
 };
 
 export const LITERAL_TYPES = [
