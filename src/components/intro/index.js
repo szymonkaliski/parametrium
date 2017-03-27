@@ -14,13 +14,19 @@ class Intro extends Component {
     autobind(this);
   }
 
-  onDrop(files) {
+  onDrop(files, rejected) {
+    if (files.length === 0) {
+      return;
+    }
+
     const file = files[0];
 
-    const reader = new FileReader();
+    if (file.type.indexOf('javascript') > 0) {
+      const reader = new FileReader();
 
-    reader.onload = e => this.props.addInputCode(e.target.result);
-    reader.readAsText(file);
+      reader.onload = e => this.props.addInputCode(e.target.result);
+      reader.readAsText(file);
+    }
   }
 
   render() {
@@ -32,13 +38,7 @@ class Intro extends Component {
         </div>
 
         <div className="intro__content">
-          <Dropzone
-            className="dropzone"
-            activeClassName="dropzone--active"
-            accept="text/javascript"
-            onDrop={this.onDrop}
-            multiple={false}
-          >
+          <Dropzone className="dropzone" activeClassName="dropzone--active" onDrop={this.onDrop} multiple={false}>
             <span className="dropzone__text">
               drop sketch here, or click to select
             </span>
