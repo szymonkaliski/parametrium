@@ -67,3 +67,47 @@
   display: table-cell;
   vertical-align: middle;
 }
+
+.intro__examples {
+  position: absolute;
+  top: 50%;
+  left: 0%;
+  right: 0%;
+
+  margin-top: 200px;
+
+  text-align: center;
+
+  color: #585858;
+}
+
+.intro__examples-text {
+  margin-bottom: 20px;
+}
+
+.intro__examples-list {
+  width: 260px;
+  margin: 0 auto;
+  text-align: left;
+}
+
+.intro__examples-list-item {
+  cursor: pointer;
+
+  transition: color 200ms;
+
+  color: #585858;
+
+  margin-bottom: 4px;
+}
+
+.intro__examples-list-item:hover {
+  color: #383838;
+}
+
+.intro__examples-original-link {
+  text-decoration: none;
+  font-style: italic;
+  color: #383838;
+  border: 1px bottom #383838;
+}
